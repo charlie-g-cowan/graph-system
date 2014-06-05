@@ -1,0 +1,88 @@
+<canvas id="canvas" width="1000" height="1000" style="border:1px solid #AAAAAA;">No Browser Support</canvas>
+<script>
+//Get canvas and set context
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+//Draw graph lines
+context.beginPath();
+context.moveTo(500,0);
+context.lineTo(500,1000);
+context.moveTo(0,500);
+context.lineTo(1000,500);
+
+//Create indent things
+
+for(i=0;i<=1000;i+=10) {
+    //If it is a whole or half number make it long
+    if(i % 50 == 0) {
+        var posVal = 490;
+        var minVal = 510;
+    } else {
+        var posVal = 495;
+        var minVal = 505;
+    }
+    //Draw each indent
+    context.moveTo(minVal,i);
+    context.lineTo(posVal,i);
+}
+
+for(i=0;i<=1000;i+=10) {
+    //If it is a whole or half number make it long
+    if(i % 50 == 0) {
+        var posVal = 490;
+        var minVal = 510;
+    } else {
+        var posVal = 495;
+        var minVal = 505;
+    }
+    //Draw each indent
+    context.moveTo(i, minVal);
+    context.lineTo(i, posVal);
+}
+
+context.closePath();
+context.stroke();
+
+//Create numbers at side
+context.fillStyle = "black";
+context.font = "20px Garamond";
+context.fillText("-5",475,1005);
+context.fillText("-4",475,905);
+context.fillText("-3",475,805);
+context.fillText("-2",475,705);
+context.fillText("-1",475,605);
+context.fillText("1",510,405);
+context.fillText("2",510,305);
+context.fillText("3",510,205);
+context.fillText("4",510,105);
+context.fillText("5",510,5);
+context.fillText("5",990,525);
+context.fillText("4",890,525);
+context.fillText("3",790,525);
+context.fillText("2",690,525);
+context.fillText("1",590,525);
+context.fillText("-1",395,485);
+context.fillText("-2",295,485);
+context.fillText("-3",195,485);
+context.fillText("-4",95,485);
+context.fillText("-5",-5,485);
+
+//BEGIN CREATING ACTUAL GRAPH
+
+//var graphinput = "y = x";
+//var graphinput = "y = 2 * x + 1";
+var graphinput = "y = -Math.pow(x,2) + 5";
+alert("GRAPHINPUT: '" + graphinput + "'");
+//FIRST DO FROM 2 to -2(1 = 100px)
+
+context.fillStyle = "black";
+
+var equation = graphinput.replace("y","").replace("=","").replace(" ","");
+alert("EQUATION: '" + equation + "'");
+for(i=-5; i<=5; i+=0.001) {
+  var caseequation = equation.replace("x", i).replace("--","+");
+  var y = eval(caseequation);
+//  alert("Original equated:" + i + "," + y);
+  context.fillRect((100*i)+500,1000-((100*y)+500),1,1); 
+}
+</script>
