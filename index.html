@@ -1,8 +1,17 @@
+y=<input type="text" id="input">
+<button onclick="draw();">Submit</button><br>
+Please use ^ for powers, and surround with brackets, e.g. "-(x^2) + 5"
+<br>y = 2 * x + 1
+<br>y = -Math.pow(x,2) + 5
+<br>
 <canvas id="canvas" width="1000" height="1000" style="border:1px solid #AAAAAA;">No Browser Support</canvas>
 <script>
 //Get canvas and set context
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
+
+function drawGraphLines() {
+
 //Draw graph lines
 context.beginPath();
 context.moveTo(500,0);
@@ -66,23 +75,41 @@ context.fillText("-2",295,485);
 context.fillText("-3",195,485);
 context.fillText("-4",95,485);
 context.fillText("-5",-5,485);
+}
+
+drawGraphLines();
 
 //BEGIN CREATING ACTUAL GRAPH
+function draw() {
 
-//var graphinput = "y = x";
-//var graphinput = "y = 2 * x + 1";
-var graphinput = "y = -Math.pow(x,2) + 5";
-alert("GRAPHINPUT: '" + graphinput + "'");
-//FIRST DO FROM 2 to -2(1 = 100px)
+clear();
+var equation = document.getElementById("input").value;
+if(equation.indexOf("^") != -1) {
+  var brackets1 = [];
+  var powerPos = equation.indexOf("^");
+  for(i=0; i<=powerPos; i++) {
+    if(equation.charAt(i) == "(") {
+      brackets1.push(i);
+    }
+  }
+  for(i=0; i<=powerPos; i++) {
+    if(equation.charAt(i) == "(") {
+      var secondBracket = i;
+    }
+  }
+  var firstBracket = brackets1[brackets1.length - 1];
+}
 
-context.fillStyle = "black";
-
-var equation = graphinput.replace("y","").replace("=","").replace(" ","");
-alert("EQUATION: '" + equation + "'");
 for(i=-5; i<=5; i+=0.001) {
   var caseequation = equation.replace("x", i).replace("--","+");
   var y = eval(caseequation);
 //  alert("Original equated:" + i + "," + y);
   context.fillRect((100*i)+500,1000-((100*y)+500),1,1); 
+}
+}
+
+function clear() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawGraphLines();
 }
 </script>
