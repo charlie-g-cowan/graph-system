@@ -20,6 +20,22 @@ var math = mathjs();
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
+var from = -2;
+var to = 2;
+if(from>to) {
+	var diff = from - to;
+} else {
+	var diff = to - from;
+}
+
+var indent = diff / 10000;
+var addto = (diff * 100) / 2;
+var timesby = 1000 / (diff * 100);
+alert(from);
+alert(to);
+alert(diff);
+alert(indent)
+
 function drawGraphLines() {
 //Draw graph lines
 	context.beginPath();
@@ -73,7 +89,8 @@ function drawGraphLines() {
 	context.fillText("3",510,205);
 	context.fillText("4",510,105);
 	context.fillText("5",510,5);
-	context.fillText("5",990,525);
+
+/*	context.fillText("5",990,525);
 	context.fillText("4",890,525);
 	context.fillText("3",790,525);
 	context.fillText("2",690,525);
@@ -82,7 +99,13 @@ function drawGraphLines() {
 	context.fillText("-2",295,485);
 	context.fillText("-3",195,485);
 	context.fillText("-4",95,485);
-	context.fillText("-5",-5,485);
+	context.fillText("-5",-5,485);*/
+
+	context.fillText("2",1000,500);
+	context.fillText("1",750,500);
+	context.fillText("-1",250,500);
+	context.fillText("-2",0,500);
+
 }
 
 //Draw axis
@@ -94,10 +117,10 @@ function draw() {
 	clear();
 	var equation = document.getElementById("input").value;
 
-	for(i=-5; i<=5; i+=0.001) {
+	for(i=from; i<=to; i+=indent) {
 		var caseequation = equation.replace("x", "(" + i + ")");
 		var y = math.eval(caseequation);
-		context.fillRect((100*i)+500,1000-((100*y)+500),1,1); 
+		context.fillRect( ((100*i)+addto) * timesby , 1000-((100*y)+500 ),1,1); 
 	}
 }
 
