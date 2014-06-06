@@ -20,8 +20,8 @@ var math = mathjs();
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
-var from = -2;
-var to = 2;
+var from = -4;
+var to = 4;
 if(from>to) {
 	var diff = from - to;
 } else {
@@ -100,12 +100,19 @@ function drawGraphLines() {
 	context.fillText("-3",195,485);
 	context.fillText("-4",95,485);
 	context.fillText("-5",-5,485);*/
-
+	for(i=1;i<=diff;i++) {
+		var displayed = i + from - 1;
+		if(displayed !== 0) {
+			var positionno = (1000/diff) * (i - 1);
+			context.fillText(String(displayed),positionno, 500);
+		}
+	}
+/*
 	context.fillText("2",1000,500);
 	context.fillText("1",750,500);
 	context.fillText("-1",250,500);
 	context.fillText("-2",0,500);
-
+*/
 }
 
 //Draw axis
