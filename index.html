@@ -5,9 +5,8 @@
 <script src="math.js" type="text/javascript"></script>
 </head>
 <body>
-y=<input type="text" id="input">
+y=<input type="text" id="input"><!--FROM x=<input type="text" id="from"> TO x=<input type="text" id="to">-->
 <button onclick="draw();">Submit</button><br>
-Please use ^ for powers, and surround with brackets, e.g. "-(x^2) + 5"
 <br>y = 2 * x + 1
 <br>y = -x^2 + 5
 <br>
@@ -20,8 +19,8 @@ var math = mathjs();
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
-var from = -4;
-var to = 4;
+var from = -6;
+var to = 10;
 if(from>to) {
 	var diff = from - to;
 } else {
@@ -31,10 +30,8 @@ if(from>to) {
 var indent = diff / 10000;
 var addto = (diff * 100) / 2;
 var timesby = 1000 / (diff * 100);
-alert(from);
-alert(to);
-alert(diff);
-alert(indent)
+var indent = 100/diff;
+var longlines = math.floor(100 / diff) + eval(String(100 / diff - math.floor(100 / diff)).substr(0,3));
 
 function drawGraphLines() {
 //Draw graph lines
@@ -52,16 +49,18 @@ function drawGraphLines() {
 			var minVal = 510;
 		} else {
 			var posVal = 495;
-		var minVal = 505;
+			var minVal = 505;
 		}
 //Draw each indent
 		context.moveTo(minVal,i);
 		context.lineTo(posVal,i);
 	}
 
-	for(i=0;i<=1000;i+=10) {
+	var i = 0;
+	var j = 0;
+	while(i <= 1000) {
 //If it is a whole or half number make it long
-		if(i % 50 == 0) {
+		if(math.round(i,1) % (longlines * 10) === 0) {
 			var posVal = 490;
 			var minVal = 510;
 		} else {
@@ -69,9 +68,14 @@ function drawGraphLines() {
 			var minVal = 505;
 		}
 //Draw each indent
-		context.moveTo(i, minVal);
-		context.lineTo(i, posVal);
+		context.moveTo(j, minVal);
+		context.lineTo(j, posVal);
+		i+=longlines;
+		j+=indent;
 	}
+
+
+
 
 	context.closePath();
 	context.stroke();
@@ -100,11 +104,14 @@ function drawGraphLines() {
 	context.fillText("-3",195,485);
 	context.fillText("-4",95,485);
 	context.fillText("-5",-5,485);*/
+
+	context.font = "20px Garamond";
 	for(i=1;i<=diff;i++) {
 		var displayed = i + from - 1;
 		if(displayed !== 0) {
 			var positionno = (1000/diff) * (i - 1);
-			context.fillText(String(displayed),positionno, 500);
+			if(displayed > 0) { var ypos = 525; } else { var ypos = 485; }
+			context.fillText(String(displayed),positionno, ypos);
 		}
 	}
 /*
