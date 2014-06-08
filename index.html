@@ -19,7 +19,7 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
 var from = -6;
-var to = 6;
+var to = 10;
 if(from>to) {
 	var diff = from - to;
 } else {
@@ -31,12 +31,13 @@ var timesby = 1000 / (diff * 100);
 var indent = 100/diff;
 var longlines = math.floor(100 / diff) + eval(String(100 / diff - math.floor(100 / diff)).substr(0,3));
 var graphindent = diff / 10000;
+var xaxis = (1000 / diff) * (0 - from);
 
 function drawGraphLines() {
 //Draw graph lines
 	context.beginPath();
-	context.moveTo(500,0);
-	context.lineTo(500,1000);
+	context.moveTo(xaxis,0);
+	context.lineTo(xaxis,1000);
 	context.moveTo(0,500);
 	context.lineTo(1000,500);
 
@@ -44,11 +45,11 @@ function drawGraphLines() {
 	for(i=0;i<=1000;i+=10) {
 //If it is a whole or half number make it long
 		if(i % 50 == 0) {
-			var posVal = 490;
-			var minVal = 510;
+			var posVal = xaxis - 10;
+			var minVal = xaxis + 10;
 		} else {
-			var posVal = 495;
-			var minVal = 505;
+			var posVal = xaxis - 5;
+			var minVal = xaxis + 5;
 		}
 //Draw each indent
 		context.moveTo(minVal,i);
@@ -82,16 +83,16 @@ function drawGraphLines() {
 //Create numbers at side
 	context.fillStyle = "black";
 	context.font = "20px Garamond";
-	context.fillText("-5",475,1005);
-	context.fillText("-4",475,905);
-	context.fillText("-3",475,805);
-	context.fillText("-2",475,705);
-	context.fillText("-1",475,605);
-	context.fillText("1",510,405);
-	context.fillText("2",510,305);
-	context.fillText("3",510,205);
-	context.fillText("4",510,105);
-	context.fillText("5",510,5);
+	context.fillText("-5",xaxis - 25,1005);
+	context.fillText("-4",xaxis - 25,905);
+	context.fillText("-3",xaxis - 25,805);
+	context.fillText("-2",xaxis - 25,705);
+	context.fillText("-1",xaxis - 25,605);
+	context.fillText("1",xaxis + 10,405);
+	context.fillText("2",xaxis + 10,305);
+	context.fillText("3",xaxis + 10,205);
+	context.fillText("4",xaxis + 10,105);
+	context.fillText("5",xaxis + 10,5);
 
 	context.font = "20px Garamond";
 	for(i=1;i<=diff;i++) {
